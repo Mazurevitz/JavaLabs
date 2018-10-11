@@ -32,28 +32,34 @@ public class JavaProj1 {
         EntityManager em = emf.createEntityManager();
        
         Student student = new Student("Wojtek" , new Date());
+        Grade grade = new Grade();
+        grade.setMark(4.5);
+        
        
         em.getTransaction().begin();
         em.persist(student);
-        em.getTransaction().commit();
-       
-        System.out.println("1: "+em.find(Student.class, 7)); // no transaction for reading
-        System.out.println("2: "+em.createQuery("SELECT s FROM Student s WHERE s.id=5")
-                .getResultList()); //getSingleResult()
-        System.out.println("3: "+em.createNamedQuery("Student.findAll")
-                .getResultList());
-        System.out.println("4: "+em.createNamedQuery("Student.findByName")
-                .setParameter("name", "Wojtek%").setMaxResults(2).getResultList());
-        System.out.println("5: "+em.createNamedQuery("Student.findByName")
-                .setParameter("xyz", "Wojtek").setMaxResults(2).getResultList());
-        System.out.println("6: "+em.createQuery(createCriteriaQuery(em, null, StudentType.PARTTIME))
-                .getResultList());
-        Student stud = em.find(Student.class, 3);
-        stud.setName("Adam");
         
-        em.getTransaction().begin();
-        em.merge(stud);
+        grade.setStudent(student);
+        em.persist(grade);
         em.getTransaction().commit();
+        
+//        System.out.println("1: "+em.find(Student.class, 7)); // no transaction for reading
+//        System.out.println("2: "+em.createQuery("SELECT s FROM Student s WHERE s.id=5")
+//                .getResultList()); //getSingleResult()
+//        System.out.println("3: "+em.createNamedQuery("Student.findAll")
+//                .getResultList());
+//        System.out.println("4: "+em.createNamedQuery("Student.findByName")
+//                .setParameter("name", "Wojtek%").setMaxResults(2).getResultList());
+//        System.out.println("5: "+em.createNamedQuery("Student.findByName")
+//                .setParameter("xyz", "Wojtek").setMaxResults(2).getResultList());
+//        System.out.println("6: "+em.createQuery(createCriteriaQuery(em, null, StudentType.PARTTIME))
+//                .getResultList());
+//        Student stud = em.find(Student.class, 3);
+//        stud.setName("Adam");
+
+//        em.getTransaction().begin();
+//        em.merge(stud);
+//        em.getTransaction().commit();
         em.close();
     }
     

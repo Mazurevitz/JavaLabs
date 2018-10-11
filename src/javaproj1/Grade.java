@@ -42,5 +42,10 @@ public class Grade implements Serializable {
         this.mark = mark;
     }
     
+        public void setStudent(Student student){
+        this.student = student;
+    }
+
+    
     
 }
